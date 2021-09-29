@@ -147,5 +147,86 @@ cuadradito.draw(); */
 buildBoard();
 drawBoard();
 
+function verifyLine(board, lastMoveX, lastMoveY){
+    let verifyVertical = verifyVertical(board, lastMoveX);
+    let verifyHorizontal = verifyHorizontal(board, lastMoveY);
+    let verifyDiagonal = verifyDiagonal(board, lastMoveX, lastMoveY);
 
+    if (verifyVertical==true ||verifyHorizontal==true || verifyDiagonal==true)
+    return true;
+    else
+    return false;
+    
+}
 
+function verifyVertical(board, lastMoveX){
+    let x = lastMoveX;
+    let line = [];
+    let isLine = false
+       for (let y = 0; y < maxY; y++) {
+        line.push(board[x][y]);
+       }
+
+    return isLine(line);
+}
+
+function verifyHorizontal(board, lastMoveY){
+    let y = lastMoveY;
+    let line = [];
+    let isLine = false
+       for (let x = 0; x < maxX; x++) {
+        line.push(board[x][y]);
+       }
+
+    return isLine(line);
+}
+
+function verifyDiagonal(board, lastMoveX, lastMoveY) {
+    let x = 0;
+    let y = 0;
+    let line = [];
+
+    if (lastMoveX<lastMoveY) {
+        y = lastMoveY - lastMoveX;
+    }
+    else if (lastMoveX>lastMoveY) {
+        x = lastMoveX - lastMoveY;
+    }
+
+    for (let i = 0; x+i < maxX && y+i <maxY; i++) {
+        line.push(board[x+i][y+i]);
+    }
+
+    if (isLine(line)) {
+        return true;
+    }
+    else line = [];
+
+    if ((lastMoveX+lastMoveY)>=maxX) {
+        x = maxX-1;
+        y = (lastMoveX+lastMoveY) - maxX-1;
+    }
+
+    for (let i = 0; x-i > 0 && y+i <maxY; i++) {
+        line.push(board[x-i][y+i]);
+        }
+
+    if (isLine(line)) {
+        return true;
+    }
+    else return false;
+}
+
+function isLine(line) {
+    let samePieces = 0;
+    for (let i = 0; i < line.length-1; i++) {
+        if(line[i].player == line[i+1].player){
+            samePieces++;
+        }
+        else samePieces = 0;
+        if (samePieces == 4){
+            return true;
+        };
+    }
+    return false;
+}
