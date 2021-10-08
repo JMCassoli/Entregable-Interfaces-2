@@ -1,9 +1,6 @@
 "use strict";
 
-let canvas = document.getElementById('gameCanvas');
-let ctx = canvas.getContext('2d');
-let width = canvas.width;
-let height = canvas.height;
+
 //let juego =[];
 class gameBoard {
     constructor(x,y) {
@@ -12,6 +9,10 @@ class gameBoard {
         this.board = [ ];
         this.size=(width/x);
 
+    }
+
+    getSize(){
+        return this.size;
     }
         
     buildBoard(){ //construye la matriz board[][], en cada posicion instancia
@@ -32,47 +33,76 @@ class gameBoard {
 
     drawTokens() {
         for ( let i=0; i< this.maxX; i++ ) {    
-            for ( let j=0; j<maxY; j++){
+            for ( let j=0; j<this.maxY; j++){
                 this.board[i][j].token.draw();
             }
         }
     }
 
-    verifyLine(board, lastMoveX, lastMoveY){
-        let verifyVertical = verifyVertical(board, lastMoveX);
-        let verifyHorizontal = verifyHorizontal(board, lastMoveY);
-        let verifyDiagonal = verifyDiagonal(board, lastMoveX, lastMoveY);
+    move(player, lastmoveX){
+        let place=0;
+        for(let i=0;i<this.maxY;i++){
+            let seted = false;
+            seted=this.board[lastmoveX][i].token.isSet();
+            if(seted&&i==0){
+                break;
+            }
+            else if(seted){
+                place=i-1;
+                break;
+            }
+            else if(i==this.maxY-1){
+                place=i;
+            }
+        }
+        this.board[lastmoveX][place].token.setPlayer(player);
+    }
+
+
+     //<------------------------------------------ line verification --------------------------------->
+
+
+
     
-        if (verifyVertical==true ||verifyHorizontal==true || verifyDiagonal==true)
+    verifyLine(lastMoveX, lastMoveY){
+        let ver = false;
+        let hor = false;
+        let dia = false;
+        ver = this.verifyVertical(lastMoveX);
+        hor = this.verifyHorizontal(lastMoveY);
+        dia = this.verifyDiagonal(lastMoveX, lastMoveY);
+
+    
+        if (ver==true ||hor==true || dia==true)
         return true;
         else
         return false;
         
     }
     
-    verifyVertical(board, lastMoveX){
+    verifyVertical(lastMoveX){
         let x = lastMoveX;
         let line = [];
         let isLine = false
-           for (let y = 0; y < maxY; y++) {
-            line.push(board[x][y]);
+           for (let y = 0; y < this.maxY; y++) {
+            line.push(this.board[x][y]);
            }
     
-        return isLine(line);
+        return this.isLine(line);
     }
     
-    verifyHorizontal(board, lastMoveY){
+    verifyHorizontal(lastMoveY){
         let y = lastMoveY;
         let line = [];
         let isLine = false
-           for (let x = 0; x < maxX; x++) {
-            line.push(board[x][y]);
+           for (let x = 0; x < this.maxX; x++) {
+            line.push(this.board[x][y]);
            }
     
-        return isLine(line);
+        return this.isLine(line);
     }
     
-    verifyDiagonal(board, lastMoveX, lastMoveY) {
+    verifyDiagonal(lastMoveX, lastMoveY) {
         let x = 0;
         let y = 0;
         let line = [];
@@ -84,11 +114,11 @@ class gameBoard {
             x = lastMoveX - lastMoveY;
         }
     
-        for (let i = 0; x+i < maxX && y+i <maxY; i++) {
-            line.push(board[x+i][y+i]);
+        for (let i = 0; x+i < this.maxX && y+i < this.maxY; i++) {
+            line.push(this.board[x+i][y+i]);
         }
     
-        if (isLine(line)) {
+        if (this.isLine(line)) {
             return true;
         }
         else line = [];
@@ -99,10 +129,10 @@ class gameBoard {
         }
     
         for (let i = 0; x-i > 0 && y+i <maxY; i++) {
-            line.push(board[x-i][y+i]);
+            line.push(this.board[x-i][y+i]);
             }
     
-        if (isLine(line)) {
+        if (this.isLine(line)) {
             return true;
         }
         else return false;
@@ -125,12 +155,3 @@ class gameBoard {
 }
 
 
-
-let game=new gameBoard(7,6);
-game.buildBoard();  // construye el tablero
-// board[0][5].token.setPlayer(2);
-// board[0][4].token.setPlayer(1);
-// board[1][5].token.setPlayer(2);
-// board[3][5].token.setPlayer(1);
-
-//drawTokens();
