@@ -58,6 +58,23 @@ class gameBoard {
         this.board[lastmoveX][place].token.setPlayer(player);
     }
 
+    getLastMoveY(lastmoveX){
+        let place=0;
+        let seted = false;
+        for(let i=0;i<this.maxY;i++){
+            seted=this.board[lastmoveX][i].token.isSet();
+             if(seted){
+                place=i;
+                break;
+            }
+            else if(i==this.maxY-1){
+                place=i;
+            }
+        }
+        return place;
+    }
+
+
 
      //<------------------------------------------ line verification --------------------------------->
 
@@ -71,7 +88,6 @@ class gameBoard {
         ver = this.verifyVertical(lastMoveX);
         hor = this.verifyHorizontal(lastMoveY);
         dia = this.verifyDiagonal(lastMoveX, lastMoveY);
-
     
         if (ver==true ||hor==true || dia==true)
         return true;
@@ -87,8 +103,8 @@ class gameBoard {
            for (let y = 0; y < this.maxY; y++) {
             line.push(this.board[x][y]);
            }
-    
-        return this.isLine(line);
+           isLine=this.isLine(line);
+           return isLine;
     }
     
     verifyHorizontal(lastMoveY){
@@ -98,8 +114,8 @@ class gameBoard {
            for (let x = 0; x < this.maxX; x++) {
             line.push(this.board[x][y]);
            }
-    
-        return this.isLine(line);
+           isLine=this.isLine(line);        
+           return isLine;
     }
     
     verifyDiagonal(lastMoveX, lastMoveY) {
@@ -113,7 +129,7 @@ class gameBoard {
         else if (lastMoveX>lastMoveY) {
             x = lastMoveX - lastMoveY;
         }
-    
+
         for (let i = 0; x+i < this.maxX && y+i < this.maxY; i++) {
             line.push(this.board[x+i][y+i]);
         }
@@ -122,33 +138,48 @@ class gameBoard {
             return true;
         }
         else line = [];
-    
-        if ((lastMoveX+lastMoveY)>=maxX) {
-            x = maxX-1;
-            y = (lastMoveX+lastMoveY) - maxX-1;
+
+        if ((lastMoveX+lastMoveY)>=this.maxX) {
+            x = this.maxX-1;
+            y = (lastMoveX+lastMoveY) - this.maxX-1;
         }
-    
-        for (let i = 0; x-i > 0 && y+i <maxY; i++) {
+        else{
+            x = lastMoveX+lastMoveY;
+            y = 0;
+        }
+        
+        for (let i = 0; x-i >= 0 && y+i <this.maxY; i++) {
             line.push(this.board[x-i][y+i]);
             }
     
-        if (this.isLine(line)) {
+        if (this.isLine(line)) {           
             return true;
         }
-        else return false;
-    }
+        
+        else {
+            return false;
+        }
+        }
     
     isLine(line) {
         let samePieces = 0;
         for (let i = 0; i < line.length-1; i++) {
-            if(line[i].player == line[i+1].player){
-                samePieces++;
+            
+            if(line[i].token.player ==0){
+                samePieces=0;
             }
-            else samePieces = 0;
-            if (samePieces == 4){
-                return true;
-            };
+            else{
+ 
+                if(line[i].token.player == line[i+1].token.player){
+                    samePieces++;
+                }
+                else samePieces = 0;
+                if (samePieces == 3){
+                    return true;
+                };
+            }
         }
+        
         return false;
     }
     
