@@ -20,10 +20,10 @@ class gameBoard {
         }else return false;
     }
 
-    dropboxMove(x){
+    dropboxMove(player,x){
         let aux =x-this.dropboxX;
         let pos = Math.floor(aux/this.size);
-        this.move(1,pos);
+        this.move(player,pos);
         console.log(pos)
     }
 

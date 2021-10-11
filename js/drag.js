@@ -4,6 +4,9 @@ let rows=6;
 let columns=7;
 let isMouseDown=false;
 let lastClickedFigure=null;
+let oldX=0;
+let oldY=0;
+
 
 canvas.addEventListener('mousedown',onMouseDown,false);
 canvas.addEventListener('mouseup',onMouseUp,false);
@@ -91,9 +94,10 @@ function onMouseDown(e){
     isMouseDown=true;
     console.log("inMouseDown",isMouseDown);
     let clickFig=findClickedFigure(e.layerX,e.layerY);
-    console.log("clickfig",clickFig,"lastclk",lastClickedFigure,"coordenadas",e.layerX,e.layerY);
-    if (clickFig != null){
+    if ((clickFig != null)&&(clickFig.gamer==player)){
         lastClickedFigure=clickFig; // guardo en   lastClickedFigure la ficha seleccionada
+        oldX=clickFig.posX;
+        oldY=clickFig.posY;
         //console.log("lastclk",lastClickedFigure,"coordenadas",e.layerX,e.layerY);
     }
 
@@ -113,7 +117,35 @@ function onMouseMove(e){
 
 function onMouseUp(e){
     isMouseDown=false;
+    console.log(game.isInDropbox(e.layerX,e.layerY));
+    if  (game.isInDropbox(e.layerX,e.layerY)&&(lastClickedFigure!=null)){
+        game.dropboxMove(player,e.layerX);
+        deleteFig(lastClickedFigure);
+        game.drawTokens();
+        drawFig();
+        turn++;
+        console.log(player);
+    }
+    else if((!game.isInDropbox(e.layerX,e.layerY))&&(lastClickedFigure!=null)) {
+        if(player==1)
+        console.log("AAAAAAAAAAAAAAAAAA",oldX,oldY)
+        lastClickedFigure.setPosition(oldX,oldY)
+        drawFig();
+    }
     lastClickedFigure=null;
+}
+
+function deleteFig(figure) {
+
+    for ( let i=0; i< figuras.length; i++ ) {
+        const element = figuras[i];
+        if (element===figure){
+            figuras.pop(i);
+            break;
+           } 
+        }
+
+    figuras.pop()
 }
 
 function drawFig(){
@@ -128,27 +160,25 @@ function drawFig(){
     
 };
 
-function piecesGamer(gamer,posX,img){ 
-    let posYInic=800;
+function piecesGamer(gamer,posX,img,size){ 
+    let posYInic=605;
     let posXInic=posX;
     let cont=1;
-    for ( let i=0; i<((rows/2) * ((columns/2)+1)); i++){
+    for ( let i=0; i<((rows* columns)/2); i++){
    
-        var ficha=new Circle(posXInic,posYInic,20,"#00FFFF",ctx,img,gamer);
-        posXInic = posXInic + 50;
+        var ficha=new Circle(posXInic,posYInic,size,"#00FFFF",ctx,img,gamer);
+        posXInic = posXInic + 70;
      
-        if ((cont%4) == 0){
-            posYInic = posYInic - 50;
+        if ((cont%3) == 0){
+            posYInic = posYInic - 65;
             posXInic=posX;
-        
         }
         figuras.push(ficha);
         cont++;
     }
-   
-   // console.log(figuras);
+// console.log(figuras);
 }
 
-piecesGamer(1,100,document.getElementById("fichaRoja")); // cargo en un arreglo las fichas del jugador 1
-piecesGamer(2,block*3,document.getElementById("fichaVerde"));
-drawFig(); 
+piecesGamer(1,45,document.getElementById("fichaRoja"),35); // cargo en un arreglo las fichas del jugador 1
+piecesGamer(2,1080,document.getElementById("fichaVerde"),42);
+drawFig();
