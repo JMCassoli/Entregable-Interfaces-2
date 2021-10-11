@@ -4,7 +4,7 @@ class box{
         this.posX=posX;
         this.posY=posY;
         this.size=size;
-        this.token= new gamePiece(this.posX,this.posY,80);
+        this.token= new gamePiece(this.posX,(this.posY+this.size*2),60);
         this.empty = document.createElement('img');
         this.empty.src='img/casilleroVacio.png';
     }
@@ -21,9 +21,9 @@ class box{
         let posY=this.getPosY();
         let size =this.size;
         let empty = this.empty;
-        empty.onload= function (){
-            ctx.drawImage(empty,posX,posY,size,size);
-        };        
+        //empty.onload= function (){
+            ctx.drawImage(empty,posX,posY+(size*2),size,size);
+        //};        
     }
 
 }

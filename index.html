@@ -12,22 +12,74 @@
 
 <body>
     
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-       
+    <nav class="navbar navbar-expand-lg navbar-dark bg-warning">
+        <div class="container-fluid config">
+                        <div class="container">
+
+                            <h3>Modo conecta: 
+                                
+                                <button type="button" class="btn btn-outline-dark"><h2>4</h2></button>
+                                <button type="button" class="btn btn-outline-dark"><h2>5</h2></button>
+                                <button type="button" class="btn btn-outline-dark"><h2>6</h2></button>
+                            </h3>  
+                            
+                        </div>   
+
+                       <button type="button" class="btn btn-outline-dark"><h2>Reiniciar</h2></button>
+                              
+        </div>
+        <div class="container-fluid info">
+            
+        </div>
+        <div class="container-fluid tokens">
+            <!-- <table>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th>fichas</th>
+                    <th></th>
+                    <th></th>
+
+                </tr>
+                <tr>
+                    <td>J1:</td>
+                    <td><a href="#"><img id="FichaRoja" src="img\FichaRoja.png" alt="" srcset=""></a></td>
+                    <td><a href="#"><img src="img\FichaRoja.png" alt="" srcset=""></a></td>
+                    <td><a href="#"><img src="img\FichaRoja.png" alt="" srcset=""></a></td>
+                    <td><a href="#"><img src="img\FichaRoja.png" alt="" srcset=""></a></td>
+                </tr>
+                <tr>
+                    <td>J2:</td>
+                    <td><a href="#"><img src="img\FichaRoja.png" alt="" srcset=""></a></td>
+                    <td><a href="#"><img src="img\FichaRoja.png" alt="" srcset=""></a></td>
+                    <td><a href="#"><img src="img\FichaRoja.png" alt="" srcset=""></a></td>
+                    <td><a href="#"><img src="img\FichaRoja.png" alt="" srcset=""></a></td>
+                </tr>
+            </table> -->
+        </div>
     </nav>
 
     <!-- Canvas -->
 
-    <div class="container">
     <div class="canvas">
-        <canvas id="gameCanvas" width="700" height="600" ></canvas>
-    </div>
+        <canvas id="gameCanvas" width="1400" height="900" ></canvas>
+    
 </div>
+<img src="./img/FichaRoja.png" alt="" id="fichaRoja">
+<img src='./img/casilleroVacio.png'>
+<img src='./img/FichaVerde.png' id="fichaVerde">
+
+ <footer>
+        <div class="container">
+            <h3>TPE-2 GRUPO:19 Fino Sergio | Cassoli Juan Manuel</h3>
+        </div>
+</footer>
+
 <script src="js/gamePiece.js"></script>
 <script src="js/box.js"></script>
 <script src="js/gameBoard.js"></script>
 <script src="js/main.js"></script>
+<script src="js/drag.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 </body>
 

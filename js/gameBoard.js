@@ -7,9 +7,27 @@ class gameBoard {
         this.maxX = x;
         this.maxY = y;
         this.board = [ ];
-        this.size=(width/x);
-
+        this.size=80;
+        this.dropboxX=block;
+        this.dropboxMaxX=block+(this.size*x);
+        this.dropboxY=this.size;
+        this.dropboxMaxY=this.size*2;
     }
+
+    isInDropbox(x,y){
+        if ((x>this.dropboxX && x<this.dropboxMaxX) && (y>this.dropboxY && y<this.dropboxMaxY)){
+            return true;
+        }else return false;
+    }
+
+    dropboxMove(x){
+        let aux =x-this.dropboxX;
+        let pos = Math.floor(aux/this.size);
+        this.move(1,pos);
+        console.log(pos)
+    }
+
+
 
     getSize(){
         return this.size;
@@ -24,8 +42,21 @@ class gameBoard {
             this.board[i] = [];
         
             for ( let j=0; j<this.maxY; j++){
-                this.board[i][j] = new box (i*this.size,j*this.size,this.size)
-                this.board[i][j].draw();
+                this.board[i][j] = new box (((i*this.size)+block),j*this.size,this.size)
+                //this.board[i][j].draw();
+            }
+        }
+        
+    }
+
+    drawBoard(){
+        for ( let i=0; i< this.maxX; i++ ) {
+          //  this.board[i] = [];
+        
+            for ( let j=0; j<this.maxY; j++){
+                const thisbox=this.board[i][j]
+                   this.board[i][j].draw();
+                 
             }
         }
         

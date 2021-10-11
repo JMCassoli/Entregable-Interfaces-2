@@ -1,3 +1,4 @@
+"use strict"
 class gamePiece{
     constructor (posX, posY, size){
         this.posX=posX;
@@ -34,21 +35,22 @@ class gamePiece{
         let size=this.size;
         switch (this.getPlayer()) {
             case 1:
-                let img1=document.createElement('img');
-                img1.src='img/FichaRoja.png';
-                img1.onload = function(){
-                    ctx.drawImage(img1,posX+9,posY+10,size,size);
-                }
+                let img1=new Image();
+                img1.src=document.getElementById("fichaRoja").src;
+                //img1.onload = function(){
+                console.log(img1,posX+9,posY+10,size,size);
+                ctx.drawImage(img1,posX+9,posY+10,size,size);
+                //}
                 
                 break;
         
             case 2:
                 let img2=document.createElement('img');
-                img2.src='img/FichaAmarilla.png';
-                img2.onload = function(){
-                    ctx.drawImage(img2,posX+9,posY+10,size,size);// acomodo los valores para que calse bien
+                img2.src=document.getElementById("fichaVerde").src;
+                //img2.onload = function(){
+                    ctx.drawImage(img2,posX,posY,80,80);// acomodo los valores para que calse bien
                                                                       // hay que corregir  
-                }
+                //}
                 
                 break;
             default:

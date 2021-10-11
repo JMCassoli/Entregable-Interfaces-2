@@ -3,6 +3,7 @@ let canvas = document.getElementById('gameCanvas');
 let ctx = canvas.getContext('2d');
 let width = canvas.width;
 let height = canvas.height;
+let block = width/4;
 
 let win=false;
 let turn=0;
@@ -21,7 +22,7 @@ game.move(2,3);
 game.move(1,3);
 game.move(2,1);
 game.move(2,4);
-
+game.dropboxMove(360);
 game.drawTokens();
 let lastMoveX=0;
 console.log(game.verifyLine(lastMoveX,game.getLastMoveY(lastMoveX)));
