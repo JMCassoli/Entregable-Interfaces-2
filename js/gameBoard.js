@@ -14,6 +14,26 @@ class gameBoard {
         this.dropboxMaxY=this.size*2;
     }
 
+    win(){
+        clearInterval(timer);
+        figuras= [];
+        drawFig();
+        document.getElementById("info").innerHTML = "<h1>GANADOR: JUGADOR"+ player +"!!!</h1>"
+        console.log("gano")
+    }
+
+    finish(){
+        clearInterval(timer);
+        figuras= [];
+        drawFig();
+    }
+
+    checkTie(){
+        if (figuras.length==0) {
+            document.getElementById("info").innerHTML = "<h1>EMPATE TODOS GANAN!!!</h1>"
+        }
+    }
+
     isInDropbox(x,y){
         if ((x>this.dropboxX && x<this.dropboxMaxX) && (y>this.dropboxY && y<this.dropboxMaxY)){
             return true;
@@ -23,8 +43,13 @@ class gameBoard {
     dropboxMove(player,x){
         let aux =x-this.dropboxX;
         let pos = Math.floor(aux/this.size);
-        this.move(player,pos);
-        console.log(pos)
+        let isMove = this.move(player,pos);
+        if (isMove){
+            return pos;
+        }
+        else{
+            return -1;
+        }
     }
 
 
@@ -76,7 +101,7 @@ class gameBoard {
             let seted = false;
             seted=this.board[lastmoveX][i].token.isSet();
             if(seted&&i==0){
-                break;
+                return false;
             }
             else if(seted){
                 place=i-1;
@@ -87,6 +112,7 @@ class gameBoard {
             }
         }
         this.board[lastmoveX][place].token.setPlayer(player);
+        return true;
     }
 
     getLastMoveY(lastmoveX){
@@ -105,6 +131,11 @@ class gameBoard {
         return place;
     }
 
+    changeTurn(){
+        turn++;
+        player=(turn%2)+1;
+        document.getElementById("turn").innerHTML= "<h3>Turno: Jugador" + player + "</h3>";
+    }
 
 
      //<------------------------------------------ line verification --------------------------------->
@@ -164,15 +195,15 @@ class gameBoard {
         for (let i = 0; x+i < this.maxX && y+i < this.maxY; i++) {
             line.push(this.board[x+i][y+i]);
         }
-    
+        console.log(line,lastMoveX,lastMoveY);
         if (this.isLine(line)) {
             return true;
         }
         else line = [];
-
+        console.log(line,lastMoveX,lastMoveY);
         if ((lastMoveX+lastMoveY)>=this.maxX) {
             x = this.maxX-1;
-            y = (lastMoveX+lastMoveY) - this.maxX-1;
+            y = (lastMoveX+lastMoveY) - (this.maxX-1);
         }
         else{
             x = lastMoveX+lastMoveY;
@@ -181,6 +212,7 @@ class gameBoard {
         
         for (let i = 0; x-i >= 0 && y+i <this.maxY; i++) {
             line.push(this.board[x-i][y+i]);
+            console.log(line,x,y)
             }
     
         if (this.isLine(line)) {           
@@ -205,7 +237,7 @@ class gameBoard {
                     samePieces++;
                 }
                 else samePieces = 0;
-                if (samePieces == 3){
+                if (samePieces == mode-1){
                     return true;
                 };
             }

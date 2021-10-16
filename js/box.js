@@ -20,10 +20,7 @@ class box{
         let posX=this.getPosX();
         let posY=this.getPosY();
         let size =this.size;
-        let empty = this.empty;
-        //empty.onload= function (){
-            ctx.drawImage(empty,posX,posY+(size*2),size,size);
-        //};        
+        ctx.drawImage(document.getElementById("casillero"),posX,posY+(size*2),size,size);
     }
 
 }

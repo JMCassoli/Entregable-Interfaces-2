@@ -38,7 +38,6 @@ class gamePiece{
                 let img1=new Image();
                 img1.src=document.getElementById("fichaRoja").src;
                 //img1.onload = function(){
-                console.log(img1,posX+9,posY+10,size,size);
                 ctx.drawImage(img1,posX+9,posY+10,size,size);
                 //}
                 

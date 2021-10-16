@@ -12,62 +12,58 @@
 
 <body>
     
-    <nav class="navbar navbar-expand-lg navbar-dark bg-warning">
-        <div class="container-fluid config">
-                        <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark text-light" style="padding-left: 5%; padding-right: 5%;">
+        <div class="container-fluid config col-4">
+                        <div class="row col-6">
 
-                            <h3>Modo conecta: 
-                                
-                                <button type="button" class="btn btn-outline-dark"><h2>4</h2></button>
-                                <button type="button" class="btn btn-outline-dark"><h2>5</h2></button>
-                                <button type="button" class="btn btn-outline-dark"><h2>6</h2></button>
-                            </h3>  
+                            <h3>Modo conecta: </h3>  
+                                <div>
+                                    <button id="mode4" type="button" class="btn btn-outline-light"><h2>4</h2></button>
+                                    <button id="mode5" type="button" class="btn btn-outline-light"><h2>5</h2></button>
+                                    <button id="mode6" type="button" class="btn btn-outline-light"><h2>6</h2></button>
+                                </div>
                             
-                        </div>   
+                        </div>  
+                        <div class="row col-5" >
 
-                       <button type="button" class="btn btn-outline-dark"><h2>Reiniciar</h2></button>
+                            <button id="start" type="button" class="btn btn-outline-light"><h2>Comenzar</h2></button>
+                            <button id="restart" type="button" class="btn btn-outline-light"><h2>Reiniciar</h2></button>
+                        </div>
+                        <div class="col-1"></div>     
                               
         </div>
-        <div class="container-fluid info">
-            
+        <div id="info" class="container-fluid col-4 info">
+            <div id="turn" class="hidden"><h3>Turno: Jugador1 </h3></div>
+            <div id="timer" class="hidden"><h3>Tiempo restante: <span id="time"> 5:00 </span> </h3></div>
         </div>
-        <div class="container-fluid tokens">
-            <!-- <table>
-                <tr>
-                    <th></th>
-                    <th></th>
-                    <th>fichas</th>
-                    <th></th>
-                    <th></th>
-
+        <div class="container-fluid tokens col-4">
+            <table>
+                <tr>                      
+                    <th><h3>fichas</h3></th>
                 </tr>
                 <tr>
-                    <td>J1:</td>
-                    <td><a href="#"><img id="FichaRoja" src="img\FichaRoja.png" alt="" srcset=""></a></td>
-                    <td><a href="#"><img src="img\FichaRoja.png" alt="" srcset=""></a></td>
-                    <td><a href="#"><img src="img\FichaRoja.png" alt="" srcset=""></a></td>
-                    <td><a href="#"><img src="img\FichaRoja.png" alt="" srcset=""></a></td>
+                    <td>
+                        <h5>Jugador1:</h5>
+                    </td>
+                    <td><img id="FichaRoja" src="img\FichaRoja.png" style="padding-left: 5px;"></td>
                 </tr>
                 <tr>
-                    <td>J2:</td>
-                    <td><a href="#"><img src="img\FichaRoja.png" alt="" srcset=""></a></td>
-                    <td><a href="#"><img src="img\FichaRoja.png" alt="" srcset=""></a></td>
-                    <td><a href="#"><img src="img\FichaRoja.png" alt="" srcset=""></a></td>
-                    <td><a href="#"><img src="img\FichaRoja.png" alt="" srcset=""></a></td>
+                    <td><h5>Jugador2:</h5></td>
+                    <td><img src="img\FichaVerde.png" style="max-width: 52px; height: auto; "></td>
                 </tr>
-            </table> -->
+            </table> 
         </div>
     </nav>
 
     <!-- Canvas -->
 
     <div class="canvas">
-        <canvas id="gameCanvas" width="1400" height="900" ></canvas>
+        <canvas id="gameCanvas" width="1600" height="820" ></canvas>
     
 </div>
-<img src="./img/FichaRoja.png" alt="" id="fichaRoja">
-<img src='./img/casilleroVacio.png'>
-<img src='./img/FichaVerde.png' id="fichaVerde">
+<img src="./img/FichaRoja.png" alt="" id="fichaRoja" class="hidden">
+<img src='./img/casilleroVacio.png' id="casillero" class="hidden">
+<img src='./img/FichaVerde.png' id="fichaVerde" class="hidden">
 
  <footer>
         <div class="container">

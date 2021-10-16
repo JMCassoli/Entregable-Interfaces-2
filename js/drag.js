@@ -1,7 +1,7 @@
 let figuras = [];
-let size=(width/(15));
-let rows=6;
-let columns=7;
+//let size=(width/(15));
+let rows=7;
+let columns=8;
 let isMouseDown=false;
 let lastClickedFigure=null;
 let oldX=0;
@@ -39,12 +39,8 @@ class Circle {
         
                 let posX=this.posX;
                 let posY=this.posY;
-                let size=this.radius * 2;
-                let img1=new Image();
-                img1.src=document.getElementById("fichaRoja").src;
-                //img1.onload = function(){
-                ctx.drawImage(this.img,posX-(size/2),posY-(size/2),size,size);
-               // };
+                let size=this.radius * 2;               
+                ctx.drawImage(this.img,posX-(size/2),posY-(size/2),size,size);               
         ctx.closePath();   
 
 
@@ -82,7 +78,7 @@ function findClickedFigure(x,y){
     
     for ( let i=0; i< figuras.length; i++ ) {
         const element = figuras[i];
-        console.log ("Element en FindClickedFigure..",element," i...",i);
+        //console.log ("Element en FindClickedFigure..",element," i...",i);
         if (element.isPointInside(x,y)){
            return element;
            } 
@@ -117,20 +113,29 @@ function onMouseMove(e){
 
 function onMouseUp(e){
     isMouseDown=false;
-    console.log(game.isInDropbox(e.layerX,e.layerY));
+    //console.log(game.isInDropbox(e.layerX,e.layerY));
     if  (game.isInDropbox(e.layerX,e.layerY)&&(lastClickedFigure!=null)){
-        game.dropboxMove(player,e.layerX);
-        deleteFig(lastClickedFigure);
+        let pos=game.dropboxMove(player,e.layerX);        
+        if (pos==-1) {
+            lastClickedFigure.setPosition(oldX,oldY)
+            drawFig();
+        }
+        else if(game.verifyLine(pos,game.getLastMoveY(pos))){
+            game.win();
+        }
+        else{
+            game.changeTurn();
+            deleteFig(lastClickedFigure);
+            game.checkTie();
+        }
         game.drawTokens();
         drawFig();
-        turn++;
-        console.log(player);
+        //console.log(player);
     }
     else if((!game.isInDropbox(e.layerX,e.layerY))&&(lastClickedFigure!=null)) {
-        if(player==1)
-        console.log("AAAAAAAAAAAAAAAAAA",oldX,oldY)
         lastClickedFigure.setPosition(oldX,oldY)
         drawFig();
+        //console.log(turn)
     }
     lastClickedFigure=null;
 }
@@ -140,13 +145,14 @@ function deleteFig(figure) {
     for ( let i=0; i< figuras.length; i++ ) {
         const element = figuras[i];
         if (element===figure){
-            figuras.pop(i);
+            figuras.splice(i,1);
+            //figuras[i]=null;
             break;
            } 
         }
-
-    figuras.pop()
 }
+
+
 
 function drawFig(){
     clearCanvas();
@@ -154,14 +160,16 @@ function drawFig(){
     game.drawTokens();
     for ( let i=0; i< figuras.length; i++ ) {
         const element = figuras[i];
-        console.log (element);
-       element.draw();
+        //console.log (element);
+        //if(element!=null){
+            element.draw();
+        //}
       }
     
 };
 
-function piecesGamer(gamer,posX,img,size){ 
-    let posYInic=605;
+function piecesGamer(gamer,posY,posX,img,size){ 
+    let posYInic=posY;
     let posXInic=posX;
     let cont=1;
     for ( let i=0; i<((rows* columns)/2); i++){
@@ -179,6 +187,6 @@ function piecesGamer(gamer,posX,img,size){
 // console.log(figuras);
 }
 
-piecesGamer(1,45,document.getElementById("fichaRoja"),35); // cargo en un arreglo las fichas del jugador 1
-piecesGamer(2,1080,document.getElementById("fichaVerde"),42);
-drawFig();
+// piecesGamer(1,45,document.getElementById("fichaRoja"),35); // cargo en un arreglo las fichas del jugador 1
+// piecesGamer(2,1080,document.getElementById("fichaVerde"),42);
+// drawFig();
