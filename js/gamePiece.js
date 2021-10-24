@@ -21,18 +21,17 @@ class gamePiece{
     setPlayer(player){
         this.player=player;
     }
-    isSet(){
+    isSet(){                    //verifica si tiene un jugador asignado 
         if(this.player!=0){
             return true;
         }
         else return false;
     }
 
-    draw() { //Carga y dibuja todas las imagenes en la matriz
+    draw() {            //Carga y dibuja todas las imagenes en la matriz
 
         let posX=this.getPosX()-2;
         let posY=this.getPosY();
-        let size=this.size;
         switch (this.getPlayer()) {
             case 1:     
                 ctx.drawImage(token1,posX,posY,80,80);             

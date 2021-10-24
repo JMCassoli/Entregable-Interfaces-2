@@ -17,6 +17,10 @@ body{
 .tokens{
     padding-left: 15%;
 }
+.selected{
+    border:white 5px dotted;
+}
+
 .nonClickable{
     pointer-events: none;
     cursor: default;

@@ -18,7 +18,7 @@
 
                             <h3 id="infoMode">Modo 4 en linea: </h3>  
                                 <div>
-                                    <button id="mode4" type="button" class="btn btn-outline-light"><h2>4</h2></button>
+                                    <button id="mode4" type="button" class="selected btn btn-outline-light"><h2>4</h2></button>
                                     <button id="mode5" type="button" class="btn btn-outline-light"><h2>5</h2></button>
                                     <button id="mode6" type="button" class="btn btn-outline-light"><h2>6</h2></button>
                                 </div>
@@ -45,12 +45,12 @@
                     <td>
                         <h5>Jugador1:</h5>
                     </td>
-                    <td class="token"><a href="#" id="selectBlue"><img id="FichaAzul" src="img\FichaAzul.png" style="max-width: 52px; height: auto; "></a></td>
+                    <td class="token selected"><a href="#" id="selectBlue"><img id="FichaAzul" src="img\FichaAzul.png" style="max-width: 52px; height: auto; "></a></td>
                     <td class="token"><a href="#" id="selectGreen"><img id="FichaVerde" src="img\FichaVerde.png" style="max-width: 52px; height: auto; "></a></td>
                 </tr>
                 <tr>
                     <td><h5>Jugador2:</h5></td>
-                    <td class="token"><a href="#" id="selectRed"><img id="FichaRoja" src="img\FichaRoja1.png" style="max-width: 52px; height: auto; "></a></td>
+                    <td class="token selected"><a href="#" id="selectRed"><img id="FichaRoja" src="img\FichaRoja1.png" style="max-width: 52px; height: auto; "></a></td>
                     <td class="token"><a href="#" id="selectYellow"><img id="FichaAmarilla" src="img\FichaAmarilla1.png" style="max-width: 52px; height: auto; "></a></td>
                 </tr>
             </table> 
@@ -60,7 +60,7 @@
     <!-- Canvas -->
 
     <div class="canvas">
-        <canvas id="gameCanvas" width="1600" height="820" ></canvas>
+        <canvas class="nonClickable" id="gameCanvas" width="1600" height="820" ></canvas>
     
 </div>
 <img src='./img/casilleroVacio.png' id="casillero" class="hidden">

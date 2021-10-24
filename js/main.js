@@ -15,25 +15,16 @@ let token1 = document.getElementById("FichaAzul");
 let token2 = document.getElementById("FichaRoja");
 let clock = document.getElementById("time");
 let btnStart = document.getElementById("start");
-btnStart.addEventListener("click",start);
 let btnRestart = document.getElementById("restart");
-btnRestart.addEventListener("click", reloadPage);
 let infoMode = document.getElementById("infoMode");
 let btnMode4 = document.getElementById("mode4");
-btnMode4.addEventListener("click", function () {mode=4; updateInfoMode()});
 let btnMode5 = document.getElementById("mode5");
-btnMode5.addEventListener("click", function () {mode=5; updateInfoMode()});
 let btnMode6 = document.getElementById("mode6");
-btnMode6.addEventListener("click", function () {mode=6; updateInfoMode()});
 let slcGreen = document.getElementById("selectGreen");
-slcGreen.addEventListener("click", function () {token1=document.getElementById("FichaVerde");});
 let slcBlue = document.getElementById("selectBlue");
-slcBlue.addEventListener("click", function () {token1=document.getElementById("FichaAzul");});
 let slcRed = document.getElementById("selectRed");
-slcRed.addEventListener("click", function () {token2=document.getElementById("FichaRoja1");});
 let slcYellow = document.getElementById("selectYellow");
-slcYellow.addEventListener("click", function () {token2=document.getElementById("FichaAmarilla");});
-
+let tokens = document.getElementsByClassName("token");
 
 function start(){
     btnMode4.classList.toggle("nonClickable");
@@ -43,44 +34,46 @@ function start(){
     slcBlue.classList.toggle("nonClickable");
     slcYellow.classList.toggle("nonClickable");
     slcRed.classList.toggle("nonClickable");
-    switch (mode) {
+    canvas.classList.toggle("nonClickable");
+    
+    switch (mode) {  //genera las fichas en base al modo de juego
         case 6:
             columns=9;
             rows=8;
             piecesGamer(1,765,45,token1,42); // cargo en un arreglo las fichas del jugador 1
-            piecesGamer(2,765,1280,token2,42); 
+            piecesGamer(2,765,1280,token2,42); // cargo en un arreglo las fichas del jugador 2
             break;
     
         case 5:
             columns=8;
             rows=7;
-            piecesGamer(1,685,45,token1,42); // cargo en un arreglo las fichas del jugador 1
+            piecesGamer(1,685,45,token1,42);
             piecesGamer(2,685,1280,token2,42); 
             break;
         default:
             columns=7;
             rows=6;
-            piecesGamer(1,605,45,token1,42); // cargo en un arreglo las fichas del jugador 1
+            piecesGamer(1,605,45,token1,42);
             piecesGamer(2,605,1080,token2,42);   
         break;
     }
    
     
-    game=new gameBoard(columns,rows);
-    game.buildBoard(); 
-    drawFig();
+    game=new gameBoard(columns,rows);    //Instancia un tablero
+    game.buildBoard();                   //Arma el tablero
+    drawFig();                           //Dibuja en pantalla las fichas
     btnStart.className = "hidden";
     btnRestart.classList.remove("hidden");
     document.getElementById("turn").toggleAttribute("class");
     document.getElementById("timer").toggleAttribute("class");
-    timer=setInterval(updateTime,1000);
+    timer=setInterval(updateTime,1000);  //Inicia el temporizador
 }
 
-function reloadPage() {
+function reloadPage() {                  //Reinicia el juego recargando la pagina
     location.reload();
 }
 
-function updateTime() {
+function updateTime() {                  //Actualiza el temporizador y verifica si se termino el tiempo
     seconds--;
     if (seconds==0){
         document.getElementById("info").innerHTML = "<h1>EMPATE TODOS GANAN!!!</h1>"
@@ -98,8 +91,49 @@ function updateInfoMode(){
     infoMode.innerHTML= "Modo "+ mode  +" en linea:"
 }
 
-// let game=new gameBoard(7,6);
-// game.buildBoard();  // construye el tablero
+btnStart.addEventListener("click",start);
+btnRestart.addEventListener("click", reloadPage);
+btnMode4.addEventListener("click", function () {        //Cambia el modo de juego a 4 en linea
+    mode=4;
+    updateInfoMode();
+    btnMode4.classList.toggle("selected",true);
+    btnMode5.classList.toggle("selected",false);
+    btnMode6.classList.toggle("selected",false);
+});
+btnMode5.addEventListener("click", function () {        //Cambia el modo de juego a 5 en linea
+    mode=5;
+    updateInfoMode();
+    btnMode4.classList.toggle("selected",false);
+    btnMode5.classList.toggle("selected",true);
+    btnMode6.classList.toggle("selected",false);
+});
+btnMode6.addEventListener("click", function () {        //Cambia el modo de juego a 6 en linea
+    mode=6;
+    updateInfoMode();
+    btnMode4.classList.toggle("selected",false);
+    btnMode5.classList.toggle("selected",false);
+    btnMode6.classList.toggle("selected",true);
+});
 
-// game.drawTokens();
-// let lastMoveX=0;
+
+slcGreen.addEventListener("click", function () {        //Selecciona la  ficha verde para el  jugador 1
+    token1=document.getElementById("FichaVerde");
+    tokens[1].classList.toggle("selected",true);
+    tokens[0].classList.toggle("selected",false);
+});
+slcBlue.addEventListener("click", function () {         //Selecciona la  ficha blue para el  jugador 1
+    token1=document.getElementById("FichaAzul");
+    tokens[0].classList.toggle("selected",true);
+    tokens[1].classList.toggle("selected",false);
+});
+slcRed.addEventListener("click", function () {          //Selecciona la  ficha red para el  jugador 2
+    token2=document.getElementById("FichaRoja");
+    tokens[2].classList.toggle("selected",true);
+    tokens[3].classList.toggle("selected",false);
+});
+slcYellow.addEventListener("click", function () {       //Selecciona la  ficha amarilla para el  jugador 2
+    token2=document.getElementById("FichaAmarilla");
+    tokens[3].classList.toggle("selected",true);
+    tokens[2].classList.toggle("selected",false);
+});
+

@@ -12,7 +12,7 @@ canvas.addEventListener('mousedown',onMouseDown,false);
 canvas.addEventListener('mouseup',onMouseUp,false);
 canvas.addEventListener('mousemove',onMouseMove,false); 
 
-class Circle {
+class Circle {                          //Esta clase representa la ficha que se arrastra
     constructor (posX, posY, radius, fillStyle, context,img,gamer) {
         //super(posX, posY, fill, context);
         this.posX=posX;
@@ -28,7 +28,7 @@ class Circle {
     
     
 
-    draw(){
+    draw(){                             //Dibuja la  ficha
 
         //clearCanvas();
         ctx.fillStyle=this.fillStyle;
@@ -46,17 +46,17 @@ class Circle {
 
     };
 
-    setPosition(newX,newY){
+    setPosition(newX,newY){                 // Setea la figura (Circulo) seleccionada, con las nuevas coordenadas pasadas como parámetro
         this.posX=newX;
         this.posY=newY;
     }
 
-    getRadius(){
+    getRadius(){                            // devuelve el radio de la figura (Circulo) seleccionada.
         return this.radius();
     };
 
-    isPointInside(x,y){
-       let X=this.posX-x;
+    isPointInside(x,y){                     // retorna un boolean que indica si un punto de coordenadas ingresado como parametro
+       let X=this.posX-x;                   // se encuentra dentro de la figura (Circulo) seleccionada.
        let Y=this.posY-y;
         return (Math.sqrt(X*X + Y*Y)< this.radius);
     }
@@ -74,11 +74,11 @@ function clearCanvas(){
     //game.buildBoard()
 }
 
-function findClickedFigure(x,y){
-    
+function findClickedFigure(x,y){                // Chequea todas las fichas (que se encuentran en el arreglo figuras), 
+                                                //  chequeando si alguna contiene las coordenadas ingresadas,
+                                                // y en caso afirmativo, retorna la ficha (objeto) que se encuentra en esa ubicacion.
     for ( let i=0; i< figuras.length; i++ ) {
         const element = figuras[i];
-        //console.log ("Element en FindClickedFigure..",element," i...",i);
         if (element.isPointInside(x,y)){
            return element;
            } 
@@ -86,7 +86,8 @@ function findClickedFigure(x,y){
     return null;
 }
 
-function onMouseDown(e){
+function onMouseDown(e){                        // controla si se clickeó sobre una ficha con findClickedFigure, si es asi, guarda en
+                                                // oldX y oldY la posicion de la ficha (Objeto) seleccionado.
     isMouseDown=true;
     console.log("inMouseDown",isMouseDown);
     let clickFig=findClickedFigure(e.layerX,e.layerY);
@@ -99,7 +100,8 @@ function onMouseDown(e){
 
 }
 
-function onMouseMove(e){
+function onMouseMove(e){                        // Si se cleckeó sobre una ficha, posiciona la ficha seleccionada sobre el puntero del mouse.
+    
     if (isMouseDown && lastClickedFigure != null){
         //console.log("setposition",e.layerX,e.layerY,"lastClickedFigure...", lastClickedFigure);
         //lastClickedFigure.limpiar();  // aca borro la imagen anterior, para no volver a cargar el canvas
@@ -111,7 +113,9 @@ function onMouseMove(e){
     };
 }
 
-function onMouseUp(e){
+function onMouseUp(e){                          //Verifica si cuando se suelta la ficha esta se encuentra dentro del dropbox,
+                                                //de no ser asi, se devuelve la ficha al monton. En caso de que se encuentre 
+                                                //dentro del dropbox y haya lugar donde quiere insertarse, se realiza el movimiento
     isMouseDown=false;
     //console.log(game.isInDropbox(e.layerX,e.layerY));
     if  (game.isInDropbox(e.layerX,e.layerY)&&(lastClickedFigure!=null)){
@@ -140,7 +144,7 @@ function onMouseUp(e){
     lastClickedFigure=null;
 }
 
-function deleteFig(figure) {
+function deleteFig(figure) {                // Elimina una ficha del arreglo figuras
 
     for ( let i=0; i< figuras.length; i++ ) {
         const element = figuras[i];
@@ -154,7 +158,7 @@ function deleteFig(figure) {
 
 
 
-function drawFig(){
+function drawFig(){                         // limpia el canvas, dibuja el tablero , y las fichas en posicion de inicio.
     clearCanvas();
     game.drawBoard();
     game.drawTokens();
@@ -168,7 +172,8 @@ function drawFig(){
     
 };
 
-function piecesGamer(gamer,posY,posX,img,size){ 
+function piecesGamer(gamer,posY,posX,img,size){             // genera un objeto ficha, le asigna la posicion de inicio
+                                                            // del juego, jugador, y la guarda en un arreglo figuras.
     let posYInic=posY;
     let posXInic=posX;
     let cont=1;
@@ -186,7 +191,3 @@ function piecesGamer(gamer,posY,posX,img,size){
     }
 // console.log(figuras);
 }
-
-// piecesGamer(1,45,document.getElementById("fichaRoja"),35); // cargo en un arreglo las fichas del jugador 1
-// piecesGamer(2,1080,document.getElementById("fichaVerde"),42);
-// drawFig();

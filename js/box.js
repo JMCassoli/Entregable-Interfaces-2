@@ -8,15 +8,15 @@ class box{
         this.empty = document.createElement('img');
         this.empty.src='img/casilleroVacio.png';
     }
-    getPosX(){
+    getPosX(){              // Devuelve la posicion de inicio (Esquina izquierda superior) sobre el eje de las abscisas (x).
         return this.posX;
     }
-    getPosY(){
+    getPosY(){              // Devuelve la posicion de comienzo sobre el eje de las ordenadas (y).
         return this.posY;
     }
 
     
-    draw() { //Carga y dibuja una imagen en la posicion del box
+    draw() {                 //Carga y dibuja una imagen en la posicion del box
         let posX=this.getPosX();
         let posY=this.getPosY();
         let size =this.size;
