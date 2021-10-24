@@ -17,3 +17,7 @@ body{
 .tokens{
     padding-left: 15%;
 }
+.nonClickable{
+    pointer-events: none;
+    cursor: default;
+}

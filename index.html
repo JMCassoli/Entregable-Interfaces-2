@@ -16,7 +16,7 @@
         <div class="container-fluid config col-4">
                         <div class="row col-6">
 
-                            <h3>Modo conecta: </h3>  
+                            <h3 id="infoMode">Modo 4 en linea: </h3>  
                                 <div>
                                     <button id="mode4" type="button" class="btn btn-outline-light"><h2>4</h2></button>
                                     <button id="mode5" type="button" class="btn btn-outline-light"><h2>5</h2></button>
@@ -27,7 +27,7 @@
                         <div class="row col-5" >
 
                             <button id="start" type="button" class="btn btn-outline-light"><h2>Comenzar</h2></button>
-                            <button id="restart" type="button" class="btn btn-outline-light"><h2>Reiniciar</h2></button>
+                            <button id="restart" type="button" class="btn btn-outline-light hidden"><h2>Reiniciar</h2></button>
                         </div>
                         <div class="col-1"></div>     
                               
@@ -39,17 +39,19 @@
         <div class="container-fluid tokens col-4">
             <table>
                 <tr>                      
-                    <th><h3>fichas</h3></th>
+                    <th><h4>FICHAS</h4></th>
                 </tr>
                 <tr>
                     <td>
                         <h5>Jugador1:</h5>
                     </td>
-                    <td><img id="FichaRoja" src="img\FichaRoja.png" style="padding-left: 5px;"></td>
+                    <td class="token"><a href="#" id="selectBlue"><img id="FichaAzul" src="img\FichaAzul.png" style="max-width: 52px; height: auto; "></a></td>
+                    <td class="token"><a href="#" id="selectGreen"><img id="FichaVerde" src="img\FichaVerde.png" style="max-width: 52px; height: auto; "></a></td>
                 </tr>
                 <tr>
                     <td><h5>Jugador2:</h5></td>
-                    <td><img src="img\FichaVerde.png" style="max-width: 52px; height: auto; "></td>
+                    <td class="token"><a href="#" id="selectRed"><img id="FichaRoja" src="img\FichaRoja1.png" style="max-width: 52px; height: auto; "></a></td>
+                    <td class="token"><a href="#" id="selectYellow"><img id="FichaAmarilla" src="img\FichaAmarilla1.png" style="max-width: 52px; height: auto; "></a></td>
                 </tr>
             </table> 
         </div>
@@ -61,9 +63,7 @@
         <canvas id="gameCanvas" width="1600" height="820" ></canvas>
     
 </div>
-<img src="./img/FichaRoja.png" alt="" id="fichaRoja" class="hidden">
 <img src='./img/casilleroVacio.png' id="casillero" class="hidden">
-<img src='./img/FichaVerde.png' id="fichaVerde" class="hidden">
 
  <footer>
         <div class="container">
