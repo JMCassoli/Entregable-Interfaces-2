@@ -90,7 +90,7 @@ function onMouseDown(e){                        // controla si se clickeó sobre
                                                 // oldX y oldY la posicion de la ficha (Objeto) seleccionado.
     isMouseDown=true;
     console.log("inMouseDown",isMouseDown);
-    let clickFig=findClickedFigure(e.layerX,e.layerY);
+    let clickFig=findClickedFigure(e.offsetX,e.offsetY);
     if ((clickFig != null)&&(clickFig.gamer==player)){
         lastClickedFigure=clickFig; // guardo en   lastClickedFigure la ficha seleccionada
         oldX=clickFig.posX;
@@ -105,7 +105,7 @@ function onMouseMove(e){                        // Si se cleckeó sobre una fich
     if (isMouseDown && lastClickedFigure != null){
         //console.log("setposition",e.layerX,e.layerY,"lastClickedFigure...", lastClickedFigure);
         //lastClickedFigure.limpiar();  // aca borro la imagen anterior, para no volver a cargar el canvas
-        lastClickedFigure.setPosition(e.layerX,e.layerY);
+        lastClickedFigure.setPosition(e.offsetX,e.offsetY);
         //lastClickedFigure.draw();
         drawFig();
 
@@ -118,8 +118,8 @@ function onMouseUp(e){                          //Verifica si cuando se suelta l
                                                 //dentro del dropbox y haya lugar donde quiere insertarse, se realiza el movimiento
     isMouseDown=false;
     //console.log(game.isInDropbox(e.layerX,e.layerY));
-    if  (game.isInDropbox(e.layerX,e.layerY)&&(lastClickedFigure!=null)){
-        let pos=game.dropboxMove(player,e.layerX);        
+    if  (game.isInDropbox(e.offsetX,e.offsetY)&&(lastClickedFigure!=null)){
+        let pos=game.dropboxMove(player,e.offsetX);        
         if (pos==-1) {
             lastClickedFigure.setPosition(oldX,oldY)
             drawFig();
@@ -136,7 +136,7 @@ function onMouseUp(e){                          //Verifica si cuando se suelta l
         drawFig();
         //console.log(player);
     }
-    else if((!game.isInDropbox(e.layerX,e.layerY))&&(lastClickedFigure!=null)) {
+    else if((!game.isInDropbox(e.offsetX,e.offsetY))&&(lastClickedFigure!=null)) {
         lastClickedFigure.setPosition(oldX,oldY)
         drawFig();
         //console.log(turn)
